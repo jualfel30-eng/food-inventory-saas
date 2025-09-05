@@ -59,7 +59,7 @@ export class ProductsController {
   @RequirePermissions('products', ['read'])
   @ApiOperation({ summary: 'Obtener lista de productos con filtros' })
   @ApiResponse({ status: 200, description: 'Lista de productos obtenida exitosamente' })
-  async findAll(@Query() query: ProductQueryDto, @Request() req) {
+  async findAll(@Query() query: ProductQueryDto, @Request() req: any) {
     try {
       const result = await this.productsService.findAll(query, req.user.tenantId);
       return {
@@ -86,7 +86,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Obtener un producto por ID' })
   @ApiResponse({ status: 200, description: 'Producto obtenido exitosamente' })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
-  async findOne(@Param('id') id: string, @Request() req) {
+  async findOne(@Param('id') id: string, @Request() req: any) {
     try {
       const product = await this.productsService.findOne(id, req.user.tenantId);
       if (!product) {
@@ -113,7 +113,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Obtener un producto por SKU' })
   @ApiResponse({ status: 200, description: 'Producto obtenido exitosamente' })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
-  async findBySku(@Param('sku') sku: string, @Request() req) {
+  async findBySku(@Param('sku') sku: string, @Request() req: any) {
     try {
       const product = await this.productsService.findBySku(sku, req.user.tenantId);
       if (!product) {
@@ -143,7 +143,7 @@ export class ProductsController {
   async update(
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
-    @Request() req,
+    @Request() req: any,
   ) {
     try {
       const product = await this.productsService.update(
@@ -175,7 +175,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Eliminar un producto (soft delete)' })
   @ApiResponse({ status: 200, description: 'Producto eliminado exitosamente' })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
-  async remove(@Param('id') id: string, @Request() req) {
+  async remove(@Param('id') id: string, @Request() req: any) {
     try {
       const result = await this.productsService.remove(id, req.user.tenantId);
       if (!result) {
@@ -200,7 +200,7 @@ export class ProductsController {
   @RequirePermissions('products', ['read'])
   @ApiOperation({ summary: 'Obtener lista de categorías disponibles' })
   @ApiResponse({ status: 200, description: 'Categorías obtenidas exitosamente' })
-  async getCategories(@Request() req) {
+  async getCategories(@Request() req: any) {
     try {
       const categories = await this.productsService.getCategories(req.user.tenantId);
       return {
@@ -220,7 +220,7 @@ export class ProductsController {
   @RequirePermissions('products', ['read'])
   @ApiOperation({ summary: 'Obtener lista de marcas disponibles' })
   @ApiResponse({ status: 200, description: 'Marcas obtenidas exitosamente' })
-  async getBrands(@Request() req) {
+  async getBrands(@Request() req: any) {
     try {
       const brands = await this.productsService.getBrands(req.user.tenantId);
       return {
@@ -243,7 +243,7 @@ export class ProductsController {
   async addVariant(
     @Param('id') id: string,
     @Body() variantDto: any,
-    @Request() req,
+    @Request() req: any,
   ) {
     try {
       const product = await this.productsService.addVariant(
@@ -271,7 +271,7 @@ export class ProductsController {
   async addSupplier(
     @Param('id') id: string,
     @Body() supplierDto: any,
-    @Request() req,
+    @Request() req: any,
   ) {
     try {
       const product = await this.productsService.addSupplier(
